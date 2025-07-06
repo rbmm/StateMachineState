@@ -108,8 +108,8 @@ enum class wls { strct, arr, func, ul, ul2 };
 void nmj(CModule* mod, _StateMachineState ** rpWLGeneric_States, wls s)
 {
 	DbgPrint("\n");
-	ULONG flags = wls::arr == s ? UNDNAME_NAME_ONLY : UNDNAME_DEFAULT;
-	while (_StateMachineState * pState = *rpWLGeneric_States++)
+	ULONG flags = wls::arr == s ? UNDNAME_NAME_ONLY : UNDNAME_DEFAULT, n = 0;
+	for (;_StateMachineState * pState = *rpWLGeneric_States++;n++)
 	{
 		ULONG disp = 0;
 		if (PCSTR pcsz = mod->GetNameFromVa(pState, &disp))
@@ -125,7 +125,7 @@ void nmj(CModule* mod, _StateMachineState ** rpWLGeneric_States, wls s)
 				switch (s)
 				{
 				case wls::arr:
-					DbgPrint("\t&%hs,\n", buf);
+					DbgPrint("\t&%hs, // [0x%x]\n", buf, n);
 					continue;
 
 				case wls::ul:
@@ -181,9 +181,9 @@ void nmj(CModule* mod, _StateMachineState ** rpWLGeneric_States, wls s)
 void nmj(CModule* mod, _StateMachineSignal ** rpWLGeneric_Signals, wls s)
 {
 	DbgPrint("\n");
-	ULONG flags = wls::arr == s ? UNDNAME_NAME_ONLY : UNDNAME_DEFAULT;
+	ULONG flags = wls::arr == s ? UNDNAME_NAME_ONLY : UNDNAME_DEFAULT, n = 0;
 
-	while (_StateMachineSignal *pSignal = *rpWLGeneric_Signals++)
+	for (;_StateMachineSignal *pSignal = *rpWLGeneric_Signals++; n++)
 	{
 		ULONG disp = 0;
 		if (PCSTR pcsz = mod->GetNameFromVa(pSignal, &disp))
@@ -199,7 +199,7 @@ void nmj(CModule* mod, _StateMachineSignal ** rpWLGeneric_Signals, wls s)
 				switch (s)
 				{
 				case wls::arr:
-					DbgPrint("\t&%hs,\n", buf);
+					DbgPrint("\t&%hs, // [0x%x]\n", buf, n);
 					continue;
 
 				case wls::strct:
