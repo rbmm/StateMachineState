@@ -103,6 +103,51 @@ BOOL PrintArr(PULONG pv, ULONG n, CModule* mod, PSTR buf, ULONG cch)
 	return TRUE;
 }
 
+BOOL PrintArr(_StateMachineTransition* pv, ULONG n, CModule* mod, PSTR buf, ULONG cch)
+{
+	if ((pv != 0) ^ (n != 0))
+	{
+		__debugbreak();
+		return FALSE;
+	}
+
+	if (pv)
+	{
+		ULONG disp = 0;
+		PCSTR pcsz;
+		if ((pcsz = mod->GetNameFromVa(pv, &disp)) && !disp)
+		{
+			if (buf == unDNameEx(buf, pcsz, cch, UNDNAME_DEFAULT))
+			{
+				if (PSTR pc = strchr(buf, '*'))
+				{
+					PCSTR pf = pc;
+					while (' ' == *++pf) ;
+					strcpy(pc, pf);
+				}
+				DbgPrint("%hs[] = {\n", buf);
+				do 
+				{
+					DbgPrint("\t{ 0x%02x, 0x%02x, 0x%02x },\n", pv->a, pv->b, pv->c);
+				} while (pv++, --n);
+				DbgPrint(" };\n\n");
+			}
+			else
+			{
+				__debugbreak();
+				return FALSE;
+			}
+		}
+		else
+		{
+			__debugbreak();
+			return FALSE;
+		}
+	}
+
+	return TRUE;
+}
+
 enum class wls { strct, arr, func, ul, ul2 };
 
 void nmj(CModule* mod, _StateMachineState ** rpWLGeneric_States, wls s)
@@ -129,11 +174,11 @@ void nmj(CModule* mod, _StateMachineState ** rpWLGeneric_States, wls s)
 					continue;
 
 				case wls::ul:
-					PrintArr((PULONG)pState->pvTransition,    pState->nTransitions,  mod, buf, _countof(buf));
+					PrintArr(pState->pvTransition,    pState->nTransitions,  mod, buf, _countof(buf));
 					continue;
 
 				case wls::ul2:
-					PrintArr((PULONG)pState->pvResetSignals, pState->nResetSignals, mod, buf, _countof(buf));
+					PrintArr(pState->pvResetSignals, pState->nResetSignals, mod, buf, _countof(buf));
 					continue;
 
 				case wls::func:
