@@ -1683,3 +1683,102 @@ const _StateMachineState * g_rpWLGeneric_States[] = {
   &g_xWLGeneric_PseudoLogging_Off2_State,
   &g_xWLGeneric_NotifyTerminateSession_State,
 };
+
+_StateMachineSignal g_xAction_Succeeded_Signal = { L"Action_Succeeded", 1 };
+_StateMachineSignal g_xAction_Failed_Signal = { L"Action_Failed", 1 };
+_StateMachineSignal g_xLogoff_NtUserCompleted_Signal = { L"Logoff_NtUserCompleted", 0 };
+_StateMachineSignal g_xWinsrv_Sas_Signal = { L"Winsrv_Sas", 0 };
+_StateMachineSignal g_xWinsrv_PowerMsgShow_Signal = { L"Winsrv_PowerMsgShow", 0 };
+_StateMachineSignal g_xWinsrv_PowerMsgHide_Signal = { L"Winsrv_PowerMsgHide", 0 };
+_StateMachineSignal g_xWinsrv_PowerResumeShow_Signal = { L"Winsrv_PowerResumeShow", 0 };
+_StateMachineSignal g_xWinsrv_Timeout_Signal = { L"Winsrv_Timeout", 0 };
+_StateMachineSignal g_xWinsrv_LogoffNotify_Signal = { L"Winsrv_LogoffNotify", 0 };
+_StateMachineSignal g_xWinsrv_AccessNotify_Signal = { L"Winsrv_AccessNotify", 0 };
+_StateMachineSignal g_xWinsrv_ShellRestart_Signal = { L"Winsrv_ShellRestart", 0 };
+_StateMachineSignal g_xWinsrv_DwmControl_Signal = { L"Winsrv_DwmControl", 0 };
+_StateMachineSignal g_xWinsrv_Lock_Signal = { L"Winsrv_Lock", 2 };
+_StateMachineSignal g_xWinsrv_WinL_Signal = { L"Winsrv_WinL", 0 };
+_StateMachineSignal g_xWinsrv_Kill_Scrnsaver_Signal = { L"Winsrv_Kill_Scrnsaver", 0 };
+_StateMachineSignal g_xSecure_Request_Signal = { L"Secure_Request", 0 };
+_StateMachineSignal g_xSecure_LuaStart_Signal = { L"Secure_LuaStart", 0 };
+_StateMachineSignal g_xSecure_LuaReady_Signal = { L"Secure_LuaReady", 2 };
+_StateMachineSignal g_xSecure_LuaEnd_Signal = { L"Secure_LuaEnd", 0 };
+_StateMachineSignal g_xTS_Disconnected_Signal = { L"TS_Disconnected", 0 };
+_StateMachineSignal g_xTS_Reconnected_Signal = { L"TS_Reconnected", 0 };
+_StateMachineSignal g_xTS_PreConnect_Signal = { L"TS_PreConnect", 0 };
+_StateMachineSignal g_xTS_NoUnlockReconnect_Signal = { L"TS_NoUnlockReconnect", 0 };
+_StateMachineSignal g_xTS_RevertBack_Signal = { L"TS_RevertBack", 0 };
+_StateMachineSignal g_xTS_SessionCreateFailed_Signal = { L"TS_SessionCreateFailed", 1 };
+_StateMachineSignal g_xWl_ReconnectionUpdate_Signal = { L"Wl_ReconnectionUpdate", 0 };
+_StateMachineSignal g_xWl_CredsAreStale_Signal = { L"Wl_CredsAreStale", 0 };
+_StateMachineSignal g_xWl_CloudPasswordExpired_Signal = { L"Wl_CloudPasswordExpired", 0 };
+_StateMachineSignal g_xWl_NTLMIsDisabled_Signal = { L"Wl_NTLMIsDisabled", 0 };
+_StateMachineSignal g_xWl_DifferentCredsAreRequired_Signal = { L"Wl_DifferentCredsAreRequired", 0 };
+_StateMachineSignal g_xWl_DelayedSwitchDesktop_Signal = { L"Wl_DelayedSwitchDesktop", 0 };
+_StateMachineSignal g_xWl_ShellReadyOrTimedOut_Signal = { L"Wl_ShellReadyOrTimedOut", 0 };
+_StateMachineSignal g_xMPR_Notify_Signal = { L"MPR_Notify", 1 };
+_StateMachineSignal g_xWl_LogonFromUnlock_Signal = { L"Wl_LogonFromUnlock", 1 };
+_StateMachineSignal g_xWl_DisplayOff_Signal = { L"Wl_DisplayOff", 0 };
+_StateMachineSignal g_xWl_DisplayOn_Signal = { L"Wl_DisplayOn", 0 };
+_StateMachineSignal g_xWl_HubScreen_Signal = { L"Wl_HubScreen", 0 };
+_StateMachineSignal g_xWLGeneric_LogonUI_Ok_Signal = { L"LogonUI_Ok", 1 };
+_StateMachineSignal g_xWLGeneric_LogonUI_Cancel_Signal = { L"LogonUI_Cancel", 1 };
+_StateMachineSignal g_xWLGeneric_LogonUI_WebUnlock_Signal = { L"LogonUI_WebUnlock", 1 };
+_StateMachineSignal g_xWLGeneric_Input_Timeout_Signal = { L"Input_Timeout", 1 };
+_StateMachineSignal g_xWLGeneric_SasDisabled_Signal = { L"SasDisabled", 1 };
+_StateMachineSignal g_xWLGeneric_NoRetryAllowed_Signal = { L"NoRetryAllowed", 1 };
+_StateMachineSignal g_xWLGeneric_NoRetryAndDisconnect_Signal = { L"NoRetryAndDisconnect", 1 };
+_StateMachineSignal g_xWLGeneric_App_Launcher_Signal = { L"App_Launcher", 0 };
+_StateMachineSignal g_xWLGeneric_ChangePassword_Signal = { L"ChangePassword", 1 };
+_StateMachineSignal g_xWLGeneric_ChangeIsAlreadyDone_Signal = { L"ChangeIsAlreadyDone", 1 };
+
+_StateMachineSignal const * g_rpWLGeneric_Signals[] = {
+
+	&g_xAction_Succeeded_Signal,
+	&g_xAction_Failed_Signal,
+	&g_xLogoff_NtUserCompleted_Signal,
+	&g_xWinsrv_Sas_Signal,
+	&g_xWinsrv_PowerMsgShow_Signal,
+	&g_xWinsrv_PowerMsgHide_Signal,
+	&g_xWinsrv_PowerResumeShow_Signal,
+	&g_xWinsrv_Timeout_Signal,
+	&g_xWinsrv_LogoffNotify_Signal,
+	&g_xWinsrv_AccessNotify_Signal,
+	&g_xWinsrv_ShellRestart_Signal,
+	&g_xWinsrv_DwmControl_Signal,
+	&g_xWinsrv_Lock_Signal,
+	&g_xWinsrv_WinL_Signal,
+	&g_xWinsrv_Kill_Scrnsaver_Signal,
+	&g_xSecure_Request_Signal,
+	&g_xSecure_LuaStart_Signal,
+	&g_xSecure_LuaReady_Signal,
+	&g_xSecure_LuaEnd_Signal,
+	&g_xTS_Disconnected_Signal,
+	&g_xTS_Reconnected_Signal,
+	&g_xTS_PreConnect_Signal,
+	&g_xTS_NoUnlockReconnect_Signal,
+	&g_xTS_RevertBack_Signal,
+	&g_xTS_SessionCreateFailed_Signal,
+	&g_xWl_ReconnectionUpdate_Signal,
+	&g_xWl_CredsAreStale_Signal,
+	&g_xWl_CloudPasswordExpired_Signal,
+	&g_xWl_NTLMIsDisabled_Signal,
+	&g_xWl_DifferentCredsAreRequired_Signal,
+	&g_xWl_DelayedSwitchDesktop_Signal,
+	&g_xWl_ShellReadyOrTimedOut_Signal,
+	&g_xMPR_Notify_Signal,
+	&g_xWl_LogonFromUnlock_Signal,
+	&g_xWl_DisplayOff_Signal,
+	&g_xWl_DisplayOn_Signal,
+	&g_xWl_HubScreen_Signal,
+	&g_xWLGeneric_LogonUI_Ok_Signal,
+	&g_xWLGeneric_LogonUI_Cancel_Signal,
+	&g_xWLGeneric_LogonUI_WebUnlock_Signal,
+	&g_xWLGeneric_Input_Timeout_Signal,
+	&g_xWLGeneric_SasDisabled_Signal,
+	&g_xWLGeneric_NoRetryAllowed_Signal,
+	&g_xWLGeneric_NoRetryAndDisconnect_Signal,
+	&g_xWLGeneric_App_Launcher_Signal,
+	&g_xWLGeneric_ChangePassword_Signal,
+	&g_xWLGeneric_ChangeIsAlreadyDone_Signal,
+};

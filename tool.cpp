@@ -176,7 +176,57 @@ void nmj(CModule* mod, _StateMachineState ** rpWLGeneric_States, wls s)
 			break;
 		}
 	}
+}
 
+void nmj(CModule* mod, _StateMachineSignal ** rpWLGeneric_Signals, wls s)
+{
+	DbgPrint("\n");
+	ULONG flags = wls::arr == s ? UNDNAME_NAME_ONLY : UNDNAME_DEFAULT;
+
+	while (_StateMachineSignal *pSignal = *rpWLGeneric_Signals++)
+	{
+		ULONG disp = 0;
+		if (PCSTR pcsz = mod->GetNameFromVa(pSignal, &disp))
+		{
+			if (disp)
+			{
+				break;
+			}
+
+			char buf[0x100];
+			if (buf == unDNameEx(buf, pcsz, _countof(buf), flags))
+			{
+				switch (s)
+				{
+				case wls::arr:
+					DbgPrint("\t&%hs,\n", buf);
+					continue;
+
+				case wls::strct:
+					DbgPrint("%hs = { ", buf);
+					if (pSignal->name)
+					{
+						DbgPrint("L\"%ws\"", pSignal->name);
+					}
+					else
+					{
+						DbgPrint("\t0\n");
+					}
+
+					DbgPrint(", %x };\n", pSignal->b);
+					continue;
+				}
+			}
+			else
+			{
+				__nop();
+			}
+		}
+		else
+		{
+			break;
+		}
+	}
 }
 
 void nmj()
@@ -189,7 +239,7 @@ void nmj()
 			if (_StateMachineState ** rpWLGeneric_States = (_StateMachineState **)mod->GetVaFromName(
 				"?g_rpWLGeneric_States@@3PAPEBU_StateMachineState@@A"))
 			{
-				DbgPrint("#if 1\n");
+				DbgPrint("#if 0\n");
 				nmj(mod, rpWLGeneric_States, wls::ul);
 				nmj(mod, rpWLGeneric_States, wls::ul2);
 				nmj(mod, rpWLGeneric_States, wls::func);
@@ -197,6 +247,15 @@ void nmj()
 				DbgPrint("\nconst _StateMachineState * g_rpWLGeneric_States[] = {\n");
 				nmj(mod, rpWLGeneric_States, wls::arr);
 				DbgPrint("};\n#endif\n");
+			}
+
+			if (_StateMachineSignal ** rpWLGeneric_Signals = (_StateMachineSignal **)mod->GetVaFromName(
+				"?g_rpWLGeneric_Signals@@3PAPEBU_StateMachineSignal@@A"))
+			{
+				nmj(mod, rpWLGeneric_Signals, wls::strct);
+				DbgPrint("\n_StateMachineSignal const * g_rpWLGeneric_Signals[] = {\n");
+				nmj(mod, rpWLGeneric_Signals, wls::arr);
+				DbgPrint("};\n");
 			}
 		}
 		FreeLibrary(hmod);
