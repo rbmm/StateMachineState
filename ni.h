@@ -211,38 +211,6 @@ MIDL_INTERFACE("9b6b093b-aaf6-4418-9d07-574f6854f190") ICredentialProviderTileDa
 	virtual HRESULT WINAPI QuerySupportedUIFeatures(SUPPORTED_UI_FEATURE_FLAGS *) = 0;
 };
 
-struct IFieldData;
-
-//////////////////////////////////////////////////////////////////////////
-// internal,private
-
-MIDL_INTERFACE("a349e249-9e81-484c-a6c5-10b1d670d7de")
-ICredTileData : public IUnknown
-{
-	virtual ULONG STDMETHODCALLTYPE GetProviderId() = 0;
-	virtual ULONG STDMETHODCALLTYPE GetCredentialId() = 0;
-	virtual ULONG STDMETHODCALLTYPE GetFieldCount() = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetFieldAt(_In_ ULONG dwIndex, _Out_ IFieldData **) = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetClsid(_Out_ GUID * clsid) = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetUserSid(_Out_ PWSTR* sid) = 0;
-	virtual BOOL STDMETHODCALLTYPE IsPLAPTile() = 0;
-	virtual BOOL STDMETHODCALLTYPE IsV2CredProv() = 0;
-	virtual BOOL STDMETHODCALLTYPE IsEmptyTile() = 0;
-	virtual BOOL STDMETHODCALLTYPE IsConnectedUser() = 0;
-	virtual BOOL STDMETHODCALLTYPE IsPictureLoginMode() = 0;
-	virtual BOOL STDMETHODCALLTYPE IsTileVisible() = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetCredProviderLogoBitmap(_Out_ HBITMAP* ) = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetCredProviderLogoBitmapStream(_In_ REFIID riid, _Out_ void ** ppvObject) = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetCredProviderLogoLabel(_Out_ PWSTR *) = 0;
-	virtual BOOL STDMETHODCALLTYPE DoesCredentialSupportIHMAutomaticInvoke() = 0;
-	virtual BOOL STDMETHODCALLTYPE ShouldShowCredUISubmitButton() = 0;
-	virtual BOOL STDMETHODCALLTYPE ShouldEnableCredUISubmitButton() = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetUIMode(_Out_ CREDENTIAL_PROVIDER_CREDENTIAL_UI_MODE * flags) = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetCredentialMethod(_Out_ CREDENTIAL_METHOD_FLAGS * flags) = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetWebDialogUrl(_Out_ PWSTR * url) = 0;
-	virtual BOOL STDMETHODCALLTYPE DoesTileAssignPrimaryUser() = 0;
-};
-
 //////////////////////////////////////////////////////////////////////////
 // ICredentialProvider
 
@@ -323,3 +291,82 @@ class DECLSPEC_UUID("F8A1793B-7873-4046-B2A7-1F318747F427") FIDOCredentialProvid
 class DECLSPEC_UUID("8AF662BF-65A0-4D0A-A540-A338A999D36F") FaceCredentialProvider;
 class DECLSPEC_UUID("C5D7540A-CD51-453B-B22B-05305BA03F07") CloudExperienceCredentialProvider;
 
+//////////////////////////////////////////////////////////////////////////
+// internal,private
+
+struct IFieldData;
+
+MIDL_INTERFACE("a349e249-9e81-484c-a6c5-10b1d670d7de")
+ICredTileData : public IUnknown
+{
+	virtual ULONG STDMETHODCALLTYPE GetProviderId() = 0;
+	virtual ULONG STDMETHODCALLTYPE GetCredentialId() = 0;
+	virtual ULONG STDMETHODCALLTYPE GetFieldCount() = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetFieldAt(_In_ ULONG dwIndex, _Out_ IFieldData **) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetClsid(_Out_ GUID * clsid) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetUserSid(_Out_ PWSTR* sid) = 0;
+	virtual BOOL STDMETHODCALLTYPE IsPLAPTile() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsV2CredProv() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsEmptyTile() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsConnectedUser() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsPictureLoginMode() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsTileVisible() = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetCredProviderLogoBitmap(_Out_ HBITMAP* ) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetCredProviderLogoBitmapStream(_In_ REFIID riid, _Out_ void ** ppvObject) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetCredProviderLogoLabel(_Out_ PWSTR *) = 0;
+	virtual BOOL STDMETHODCALLTYPE DoesCredentialSupportIHMAutomaticInvoke() = 0;
+	virtual BOOL STDMETHODCALLTYPE ShouldShowCredUISubmitButton() = 0;
+	virtual BOOL STDMETHODCALLTYPE ShouldEnableCredUISubmitButton() = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetUIMode(_Out_ CREDENTIAL_PROVIDER_CREDENTIAL_UI_MODE * flags) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetCredentialMethod(_Out_ CREDENTIAL_METHOD_FLAGS * flags) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetWebDialogUrl(_Out_ PWSTR * url) = 0;
+	virtual BOOL STDMETHODCALLTYPE DoesTileAssignPrimaryUser() = 0;
+};
+
+enum WLUI_REQUEST_FLAGS{};
+enum WLUI_SECURITY_OPTIONS{};
+enum WLUI_STATE{};
+enum WLUI_REQUEST_REASON{};
+enum WLUI_REASON{};
+struct WLUI_CREDPROV_RESPONSE;
+struct CREDUI_CONTEXT;
+struct CREDUI_INFO_INTERNAL_CONTEXT;
+struct WLUI_INFORMATION;
+
+class __declspec(uuid("0bdc6fc7-83e3-46a4-bfa0-1bc14dbf8b38")) LogonUIController;
+
+struct __declspec(uuid("d31db316-e169-4263-8f34-99aa38b92275")) IWinLogonRPC : public IUnknown
+{
+	virtual HRESULT WINAPI Abort() = 0;
+	virtual HRESULT WINAPI DisplayLocked(PCWSTR,PCWSTR,PCWSTR,PCWSTR,PCWSTR,WLUI_REQUEST_FLAGS) = 0;
+	virtual HRESULT WINAPI WaitForLockScreenDismiss(BOOL*,BOOL*) = 0;
+	virtual HRESULT WINAPI DisplayRequestCredentialsError(long,long,PCWSTR,PCWSTR,UINT,UINT *,BOOL*) = 0;
+	virtual HRESULT WINAPI DisplayMessage(PCWSTR,PCWSTR,UINT,UINT *,BOOL*) = 0;
+	virtual HRESULT WINAPI DisplaySequentialLogonPrompt(PCWSTR,UINT,UINT *,BOOL*) = 0;
+	virtual HRESULT WINAPI DisplaySecurityOptions(WLUI_SECURITY_OPTIONS *,UINT *,BOOL*) = 0;
+	virtual HRESULT WINAPI DisplayStatus(PCWSTR,WLUI_STATE,BOOL*) = 0;
+	virtual HRESULT WINAPI DisplayStatusOnCredentialPage(WLUI_REQUEST_REASON,WLUI_REQUEST_FLAGS,PCWSTR,PCWSTR,WLUI_STATE,BOOL*) = 0;
+	virtual HRESULT WINAPI DisplayTSDisconnectOptions(ULONG,ULONG *,ULONG,ULONG *,ULONG *,BOOL*) = 0;
+	virtual HRESULT WINAPI DisplayWelcome(WLUI_REQUEST_FLAGS,PCWSTR,BOOL*,BOOL*) = 0;
+	virtual HRESULT WINAPI NotifyIsReadyForDesktopSwitch() = 0;
+	virtual HRESULT WINAPI ReleaseContext() = 0;
+	virtual HRESULT WINAPI ReportResult(WLUI_REQUEST_REASON,long,long,PCWSTR,PCWSTR,PCWSTR,PWSTR*,WLUI_CREDPROV_RESPONSE *,BOOL*) = 0;
+	virtual HRESULT WINAPI RequestCredentials(WLUI_REQUEST_REASON,WLUI_REQUEST_FLAGS,PCWSTR,CRED_PROV_CREDENTIAL *,UINT *,PWSTR*,PWSTR*,BOOL*) = 0;
+	virtual HRESULT WINAPI PromptForCredentials(ULONG,CREDUI_CONTEXT,CREDUI_INFO_INTERNAL_CONTEXT,ULONG,ULONG,BYTE *,ULONG,int,ULONG,BYTE * *,ULONG *,BOOL *,ULONG *,ULONG *) = 0;
+	virtual HRESULT WINAPI Shutdown() = 0;
+	virtual HRESULT WINAPI DisplayTSDisconnectUI(ULONG,ULONG *,int,UINT *,BOOL*,BOOL*) = 0;
+	virtual HRESULT WINAPI DisplayTSReconnectUI(ULONG,ULONG *,UINT *,BOOL*) = 0;
+	virtual HRESULT WINAPI FinishOperation(WLUI_INFORMATION,ULONG,BOOL*) = 0;
+	virtual HRESULT WINAPI InformLogonUI(WLUI_INFORMATION,WLUI_STATE,WLUI_REASON) = 0;
+	virtual HRESULT WINAPI DelayLocked(WLUI_REQUEST_FLAGS,PCWSTR,ULONG64,PCWSTR,BOOL*) = 0;
+	virtual HRESULT WINAPI GetShutdownResolverInfo(BOOL*,BOOL*,ULONG *) = 0;
+	virtual HRESULT WINAPI DisplayLockSecure(PCWSTR,PCWSTR,PCWSTR,PCWSTR,WLUI_REQUEST_FLAGS,BOOL*) = 0;
+	virtual HRESULT WINAPI DelayLockSecure(WLUI_REQUEST_FLAGS,ULONG64,PCWSTR,BOOL*) = 0;
+	virtual HRESULT WINAPI ClearUIState() = 0;
+	virtual HRESULT WINAPI PrepareWebDialog(PCWSTR) = 0;
+	virtual HRESULT WINAPI WaitForWebDialogComplete(BOOL*) = 0;
+};
+
+// called by winlogon
+// IWinLogonRPC* p;
+// CoCreateInstance(__uuidof(LogonUIController), 0, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&p)))
