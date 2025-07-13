@@ -1,5 +1,54 @@
 #pragma once
 
+/*
+
+CredentialProvider
+{
+	d27c3481-5a1c-45b2-8aaa-c20ebbe8229e ICredentialProvider
+	095c1484-1c0c-4388-9c6d-500e61bf84bd ICredentialProviderSetUserArray
+	a09bcc29-d779-4513-bb59-b4db5d82d2b6 ICredentialProviderWithDisplayState
+	cc4b9589-76f2-42b2-8736-41cd43b9194f ICredentialProviderWithSessionContext
+	8a4e89fe-c09d-475e-88cb-f8f11e047c50 IAutoLogonProvider
+};
+
+CredentialProviderCredential
+{
+	63913a93-40c1-481a-818d-4072ff8c70cc ICredentialProviderCredential
+	fd672c54-40ea-4d6e-9b49-cfb1a7507bd7 ICredentialProviderCredential2
+	64a5010e-4363-41f8-9738-19045c20dabc ICredentialProviderCredential3
+	4a54a3b6-a8d3-46a8-9080-811ba8ccb07d ICredentialProviderCredential4
+	1ecf61d8-745e-4484-bcc7-182cea64c787 ICredentialProviderCredential5
+	dbc6fb30-c843-49e3-a645-573e6f39446a ICredentialProviderCredentialWithFieldOptions
+	19844e8f-93e3-425a-9485-56a35726fe1c ICredentialProviderCredentialWithSubmissionOptions
+	5e6ab326-3948-4a3d-a4b9-707cc16e5eae ICredentialProviderCredentialWithWebDialog
+	8c89cd69-6e00-4189-ab49-b036663d05d3 ICredentialProviderCredentialWithUIMode
+	ac9888cd-1278-4d00-a05e-7b052c014553 ICredentialProviderCredentialWithHiddenCredUISubmitButton
+	5881c1a8-5b25-41ab-9311-750f996c8615 ICredentialProviderCredentialWithDisabledCredUISubmitButton
+	c8df4b94-3179-4ece-9083-5c674a644374 ICredentialProviderCredentialCredUISubmitButtonEvents
+	f6247cf9-061d-46e7-aaa7-0fde071a5c1a ICredentialProviderCredentialTileDataInfo
+	62fb1df7-92ae-461b-ad46-59bb9c9d8a76 ICredentialProviderCredentialForPrimaryUser
+	5289a2f4-4e0d-4105-b313-94f82c2e900e ICredentialMethodInfo
+};
+
+CredentialProviderCredentialEvents
+{
+	fa6fa76b-66b7-4b11-95f1-86171118e816 ICredentialProviderCredentialEvents
+	B53C00B6-9922-4B78-B1F4-DDFE774DC39B ICredentialProviderCredentialEvents2
+	2D8DEEB8-1322-4973-8DF9-B282F2468290 ICredentialProviderCredentialEvents3
+	df50ea86-b7a9-4485-8f04-930a49686e5b ICredentialProviderCredentialEvents4
+	c4a56475-d6f5-43e3-80ae-1aa99833cc05 ICredentialProviderCredentialEvents5
+};
+
+CredentialProviderEvents
+{
+	34201e5a-a787-41a3-a5a4-bd6dcf2a854e ICredentialProviderEvents
+	9b6b093b-aaf6-4418-9d07-574f6854f190 ICredentialProviderTileDataEvents
+	8aa3ef4e-6a82-467d-a159-e0c97d057952 ICredentialProviderBioEvent
+	1abbb96c-b973-43fe-820c-dbcfd3a7cc7d IGreetingFormatter
+};
+
+*/
+
 //////////////////////////////////////////////////////////////////////////
 // ICredentialProviderCredential
 
