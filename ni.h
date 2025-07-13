@@ -24,7 +24,6 @@ CredentialProviderCredential
 	8c89cd69-6e00-4189-ab49-b036663d05d3 ICredentialProviderCredentialWithUIMode
 	ac9888cd-1278-4d00-a05e-7b052c014553 ICredentialProviderCredentialWithHiddenCredUISubmitButton
 	5881c1a8-5b25-41ab-9311-750f996c8615 ICredentialProviderCredentialWithDisabledCredUISubmitButton
-	c8df4b94-3179-4ece-9083-5c674a644374 ICredentialProviderCredentialCredUISubmitButtonEvents
 	f6247cf9-061d-46e7-aaa7-0fde071a5c1a ICredentialProviderCredentialTileDataInfo
 	62fb1df7-92ae-461b-ad46-59bb9c9d8a76 ICredentialProviderCredentialForPrimaryUser
 	5289a2f4-4e0d-4105-b313-94f82c2e900e ICredentialMethodInfo
@@ -37,6 +36,10 @@ CredentialProviderCredentialEvents
 	2D8DEEB8-1322-4973-8DF9-B282F2468290 ICredentialProviderCredentialEvents3
 	df50ea86-b7a9-4485-8f04-930a49686e5b ICredentialProviderCredentialEvents4
 	c4a56475-d6f5-43e3-80ae-1aa99833cc05 ICredentialProviderCredentialEvents5
+	c8df4b94-3179-4ece-9083-5c674a644374 ICredentialProviderCredentialCredUISubmitButtonEvents
+	0e532f00-c69e-46a3-b7a3-85e53f13e6a7 ICredentialProviderCredentialUIModeEvents 
+	7c5d038e-59f7-4551-a6f0-fa431e00dc56 ICredentialProviderCredentialSwitchProviderEvents 
+	dd107cc8-d477-4e0e-920b-b072933fddd4 ICredentialProviderCredentialTileDataEvents 
 };
 
 CredentialProviderEvents
@@ -346,6 +349,7 @@ ICredentialProviderWithSessionContext : public IUnknown
 
 class DECLSPEC_UUID("F8A0B131-5F68-486c-8040-7E8FC3C85BB6") WLIDCredentialProvider;
 class DECLSPEC_UUID("D6886603-9D2F-4EB2-B667-1971041FA96B") NgcPinProvider;
+class DECLSPEC_UUID("48b4e58d-2791-456c-9091-d524c6c706f2") DeviceNgcCredProvider;
 class DECLSPEC_UUID("2135f72a-90b5-4ed3-a7f1-8bb705ac276a") PicturePasswordLogonProvider;
 class DECLSPEC_UUID("cb82ea12-9f71-446d-89e1-8d0924e1256e") PINLogonProvider;
 class DECLSPEC_UUID("edd749de-2ef1-4a80-98d1-81f20e6df58e") PlapLogonFilter;
