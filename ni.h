@@ -288,6 +288,13 @@ IAutoLogonProvider : public IUnknown
 	virtual HRESULT STDMETHODCALLTYPE SetAutoLogonManager(IAutoLogonManager *) = 0;
 };
 
+MIDL_INTERFACE("cc4b9589-76f2-42b2-8736-41cd43b9194f")
+ICredentialProviderWithSessionContext : public IUnknown 
+{
+	// returned by ICredentialProviderCredentialWithSubmissionOptions::GetSubmissionOptions
+	virtual HRESULT STDMETHODCALLTYPE SetSessionContext(PCWSTR pszContext) = 0;
+};
+
 class DECLSPEC_UUID("F8A0B131-5F68-486c-8040-7E8FC3C85BB6") WLIDCredentialProvider;
 class DECLSPEC_UUID("D6886603-9D2F-4EB2-B667-1971041FA96B") NgcPinProvider;
 class DECLSPEC_UUID("2135f72a-90b5-4ed3-a7f1-8bb705ac276a") PicturePasswordLogonProvider;
