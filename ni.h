@@ -23,10 +23,16 @@ ICredentialProviderCredentialWithDisabledCredUISubmitButton : public IUnknown
 };
 
 MIDL_INTERFACE("5e6ab326-3948-4a3d-a4b9-707cc16e5eae")
-ICredentialProviderCredentialWithWebDialog : public IUnknown // +8
+ICredentialProviderCredentialWithWebDialog : public IUnknown
 {
 	virtual HRESULT STDMETHODCALLTYPE OnWebDialogVisiblityChange(BOOL bVisible) = 0;
 	virtual HRESULT STDMETHODCALLTYPE GetWebDialogUrl(_Out_ PWSTR* ppszUrl) = 0;
+};
+
+MIDL_INTERFACE("62fb1df7-92ae-461b-ad46-59bb9c9d8a76")
+ICredentialProviderCredentialForPrimaryUser : public IUnknown
+{
+	virtual HRESULT STDMETHODCALLTYPE GetShouldAssignPrimaryUser(BOOL *) = 0;
 };
 
 enum CREDENTIAL_PROVIDER_CREDENTIAL_UI_MODE {};
