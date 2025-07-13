@@ -46,7 +46,7 @@ CredentialProviderEvents
 {
 	34201e5a-a787-41a3-a5a4-bd6dcf2a854e ICredentialProviderEvents
 	9b6b093b-aaf6-4418-9d07-574f6854f190 ICredentialProviderTileDataEvents
-	8aa3ef4e-6a82-467d-a159-e0c97d057952 ICredentialProviderBioEvent
+	8aa3ef4e-6a82-467d-a159-e0c97d057952 ICredentialProviderBioEvents
 	1abbb96c-b973-43fe-820c-dbcfd3a7cc7d IGreetingFormatter
 };
 
@@ -196,7 +196,7 @@ ICredentialProviderCredentialTileDataEvents : public IUnknown
 enum CREDENTIAL_PROVIDER_FEEDBACK_VISUAL_STATE{ vs_none };
 enum BIO_FEEDBACK_PRIORITY{ bp_idle, bp_default };
 
-MIDL_INTERFACE("8aa3ef4e-6a82-467d-a159-e0c97d057952") ICredentialProviderBioEvent : public IUnknown 
+MIDL_INTERFACE("8aa3ef4e-6a82-467d-a159-e0c97d057952") ICredentialProviderBioEvents : public IUnknown 
 {
 	// BioFeedbackVisualStateChangedWithPriority(upAdviseContext, state, str1, str2, bp_default);
 	virtual HRESULT NTAPI BioFeedbackVisualStateChanged(
