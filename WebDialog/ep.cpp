@@ -84,10 +84,10 @@ PWSTR GenName(PCWSTR name, PWSTR buf, ULONG cch, REFGUID guid)
 
 void WINAPI ep(void*)
 {
+	PCWSTR pcsz = L"--0";
 	HRESULT hr;
 	if (0 <= (hr = CoInitializeEx(0, COINIT_APARTMENTTHREADED)))
 	{
-		ULONG pid;
 		HANDLE hProcess = 0, h = 0;
 		IServiceProvider* p;
 		struct __declspec(uuid("c2f03a33-21f5-47fa-b4bb-156362a2f239")) ImmersiveShell;
@@ -109,12 +109,14 @@ void WINAPI ep(void*)
 
 				if (0 <= (hr = plsdp->QueryInterface(IID_PPV_ARGS(&psi))))
 				{
-					psi->GetServerProcessId(&pid);
+					BOOLEAN b;
+					RtlAdjustPrivilege(SE_DEBUG_PRIVILEGE, TRUE, FALSE, &b);
 					hr = psi->GetServerProcessHandle(PROCESS_DUP_HANDLE, FALSE, &hProcess);
 					psi->Release();
 
 					if (0 <= hr)
 					{
+						pcsz = L"--1";
 						if ((hEvent[0] = CreateEventW(0, 0, 0, GenName(L"Event", buf, _countof(buf), guid))) &&
 							(hEvent[1] = CreateEventW(0, 0, 0, GenName(L"SharedVisualEvent", buf, _countof(buf), guid))) &&
 							(hSection = CreateFileMappingW(INVALID_HANDLE_VALUE, 0, PAGE_READWRITE, 0, 0x1000,
@@ -134,6 +136,7 @@ void WINAPI ep(void*)
 					if (0 <= hr)
 					{
 						hr = plsdp->CreateController(h, &plah);
+						pcsz = L"--2";
 					}
 				}
 				plsdp->Release();
@@ -142,8 +145,10 @@ void WINAPI ep(void*)
 				{
 					if (0 <= (hr = plah->Initialize(guid)))
 					{
+						pcsz = L"--3";
 						hr = plah->ShowWebDialog(L"ms-lwh://AADWEBAUTH");
 
+						pcsz = L"--3";
 						if (0 <= hr)
 						{
 							Sleep(10000);
@@ -166,7 +171,7 @@ void WINAPI ep(void*)
 
 	if (hr)
 	{
-		ShowErrorBox(0, hr, 0);
+		ShowErrorBox(0, hr, pcsz);
 	}
 		
 	ExitProcess(0);
