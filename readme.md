@@ -1,9 +1,9 @@
 ## Web sign-in for Windows
 how this implemented internally. problem here that app, which show web content, designed to run as Interactive User ( RunAs = Interactive User under AppId)
 but we on winlogon desktop and probably no user loged on (not unlock, but login)
-idea was - log under special user account and then lock system. and then show WebDialog under this special account, on under default desktop, but on special lock band ( ZBID_LOCK )
+idea was - log under special user account and then lock system. and then show WebDialog under this special account, on under default desktop, but on special lock band ( `ZBID_LOCK` )
 
-at first credentil provider pass logon serialization for special account - WsiAccount
+at first credentil provider pass logon serialization for special account - `WsiAccount`
 it is can be done with 
 
 ```
@@ -48,7 +48,7 @@ HRESULT WsiEnvironmentAccountManager::GetWsiEnvironmentAccountNewCredz(unsigned 
 HRESULT AccountManagerUtils::GenerateAccountPassword(unsigned short * *);
 ```
 
-every time new, random password is generated for WsiAccount. it have  - 14 chars from [A..Z][0..9] set. as example `RUHJVMTP3DQP2T`
+every time new, random password is generated for `WsiAccount`. it have  - 14 chars from [A..Z][0..9] set. as example `RUHJVMTP3DQP2T`
 
 credential must implement `ICredentialProviderCredentialWithSubmissionOptions` interface (view full list of interfaces [here](https://github.com/rbmm/StateMachineState/blob/main/ni.h) )
 
@@ -93,12 +93,12 @@ it do RPC call to logonUI
 logonUI interact with explorer via com interfaces, and as result
 `VisualsController::ShowWebDialog(PCWSTR url)` will be called inside explorer (on user desktop, for `WsiAccount` account )
 
-this create window L"LockScreenBackstopFrame"::L"Backstop Window" in `ZBID_LOCK` band and show web dialog over it
+this create window `L"LockScreenBackstopFrame"::L"Backstop Window"` in `ZBID_LOCK` band and show web dialog over it
 
 finally winlogon switch to use `\Default` desktop, where `"Backstop Window"` and dialog
 
-for demo code,  show `L"Backstop Window"` by self. it not show correct web dialog, but will give some idea, how it implemented and look like
-demo block desktop on 10 seconds, before exit
+this [demo code](https://github.com/rbmm/StateMachineState/tree/main/WebDialog), show `L"Backstop Window"` by self. it not show correct web dialog, but will give some idea, how it implemented and look like
+demo block desktop on 10 seconds, before exit. run [WebDialog.exe](https://github.com/rbmm/StateMachineState/blob/main/x64/Release/WebDialog.exe)
 
 also you can run (before demo) this [CTF](https://github.com/rbmm/CTF/blob/main/CTF.x64.exe) example. it show messagebox in `ZBID_ABOVELOCK_UX` band, as result will be visible on lock screen.
 (CTF.x64.exe will be have very many AV "detects". but this say only about AV quality )
