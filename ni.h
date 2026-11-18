@@ -75,7 +75,7 @@ ICredentialProviderCredentialWithDisabledCredUISubmitButton : public IUnknown
 };
 
 MIDL_INTERFACE("5e6ab326-3948-4a3d-a4b9-707cc16e5eae")
-ICredentialProviderCredentialWithWebDialog : public IUnknown
+ICredentialProviderCredentialWithWebDialog : public IUnknown // +8
 {
 	virtual HRESULT STDMETHODCALLTYPE OnWebDialogVisiblityChange(BOOL bVisible) = 0;
 	virtual HRESULT STDMETHODCALLTYPE GetWebDialogUrl(_Out_ PWSTR* ppszUrl) = 0;
@@ -105,7 +105,7 @@ ICredentialProviderCredentialWithSubmissionOptions : public IUnknown
 };
 
 MIDL_INTERFACE("5289a2f4-4e0d-4105-b313-94f82c2e900e")
-ICredentialMethodInfo : public IUnknown // +20
+ICredentialMethodInfo : public IUnknown 
 {
 	virtual HRESULT STDMETHODCALLTYPE GetCredentialMethod(_Out_ CREDENTIAL_METHOD_FLAGS *) = 0;
 };
@@ -130,6 +130,7 @@ ICredentialProviderCredential5 : ICredentialProviderCredential4
 	virtual HRESULT STDMETHODCALLTYPE GetAccessibilityTextForField(_In_ DWORD dwFieldID, _Out_ PWSTR* ppszText) = 0;
 	virtual HRESULT STDMETHODCALLTYPE GetIsAccessibilityViewRawForField(_In_ DWORD dwFieldID, _Out_ BOOL* pbRaw) = 0;
 };
+
 
 //////////////////////////////////////////////////////////////////////////
 // ICredentialProviderCredentialEvents
@@ -190,10 +191,98 @@ ICredentialProviderCredentialTileDataEvents : public IUnknown
 	virtual HRESULT STDMETHODCALLTYPE RequestVisibilityChange() = 0;
 };
 
+MIDL_INTERFACE("ef702cca-9b47-4e0b-80fe-9551bee5bf14")
+IFieldData : public IUnknown
+{
+	virtual HRESULT STDMETHODCALLTYPE GetString(_Out_ wchar_t * *) = 0;
+	virtual ULONG STDMETHODCALLTYPE GetFieldID() = 0;
+	virtual CREDENTIAL_PROVIDER_FIELD_TYPE STDMETHODCALLTYPE GetFieldType() = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetFieldLabel(_Out_ wchar_t * *) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetFieldTypeGuid(_Out_ GUID *) = 0;
+	virtual BOOL STDMETHODCALLTYPE HasStringValue() = 0;
+	virtual BOOL STDMETHODCALLTYPE HasWritableStringValue() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsKeyFocusable() = 0;
+	virtual BOOL STDMETHODCALLTYPE HasBitmapValue() = 0;
+	virtual BOOL STDMETHODCALLTYPE HasCheckboxValue() = 0;
+	virtual BOOL STDMETHODCALLTYPE HasComboBoxValue() = 0;
+	virtual BOOL STDMETHODCALLTYPE HasSubmitButtonValue() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsVisibleInSelectedTile() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsVisibleOnlyWhenSelected() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsVisibleInDeselectedTile() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsInteractiveStateFocused() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsInteractiveStateDisabled() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsInteractiveStateReadOnly() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsHidden() = 0;
+	virtual BOOL STDMETHODCALLTYPE ShouldShowEnglishKeyboard() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsImageFieldLogo() = 0;
+	virtual void STDMETHODCALLTYPE SetIsFieldImageLogo() = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetBitmapSource(_Out_ HBITMAP *) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetBitmapCopy(_Out_ HBITMAP *) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetBitmapStream(REFIID riid, _Out_ void * * ppvObject) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetCheckboxChecked(_Out_ BOOL *) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetCheckboxLabel(_Out_ wchar_t * *) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetComboboxItemCount(_Out_ UINT *) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetComboBoxItem(_In_ UINT Index, _Out_ wchar_t * *) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetComboboxSelectedItem(_Out_ int *) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetIndexforFieldAdjacentToSubmitButton(_Out_ UINT *) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetTextFieldMaxLength(_Out_ ULONG *) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetAccessibilityText(_Out_ wchar_t * *) = 0;
+	virtual BOOL STDMETHODCALLTYPE IsAccessibilityViewRaw() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsStandaloneSubmitButton() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsPasswordRevealEnabled() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsNumbersOnly() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsEmailAddress() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsLogonUserNameEditField() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsButtonStyledLink() = 0;
+};
+
+MIDL_INTERFACE("a349e249-9e81-484c-a6c5-10b1d670d7de")
+ICredTileData : public IUnknown
+{
+	virtual ULONG STDMETHODCALLTYPE GetProviderId() = 0;
+	virtual ULONG STDMETHODCALLTYPE GetCredentialId() = 0;
+	virtual ULONG STDMETHODCALLTYPE GetFieldCount() = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetFieldAt(_In_ ULONG dwIndex, _Out_ IFieldData **) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetClsid(_Out_ GUID * clsid) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetUserSid(_Out_ PWSTR* sid) = 0;
+	virtual BOOL STDMETHODCALLTYPE IsPLAPTile() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsV2CredProv() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsEmptyTile() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsConnectedUser() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsPictureLoginMode() = 0;
+	virtual BOOL STDMETHODCALLTYPE IsTileVisible() = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetCredProviderLogoBitmap(_Out_ HBITMAP* ) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetCredProviderLogoBitmapStream(_In_ REFIID riid, _Out_ void ** ppvObject) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetCredProviderLogoLabel(_Out_ PWSTR *) = 0;
+	virtual BOOL STDMETHODCALLTYPE DoesCredentialSupportIHMAutomaticInvoke() = 0;
+	virtual BOOL STDMETHODCALLTYPE ShouldShowCredUISubmitButton() = 0;
+	virtual BOOL STDMETHODCALLTYPE ShouldEnableCredUISubmitButton() = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetUIMode(_Out_ CREDENTIAL_PROVIDER_CREDENTIAL_UI_MODE * flags) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetCredentialMethod(_Out_ CREDENTIAL_METHOD_FLAGS * flags) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetWebDialogUrl(_Out_ PWSTR * url) = 0;
+	virtual BOOL STDMETHODCALLTYPE DoesTileAssignPrimaryUser() = 0;
+};
+
 //////////////////////////////////////////////////////////////////////////
 // ICredentialProviderEvents
 
-enum CREDENTIAL_PROVIDER_FEEDBACK_VISUAL_STATE{ vs_none };
+enum CREDENTIAL_PROVIDER_FEEDBACK_VISUAL_STATE{ 
+	vs_none,
+	vs_eye_gaze_center,          // Базовый взгляд по центру (EyeGaze / \uE8F5)
+	vs_eye_gaze_left_up,         // Кадр анимации зрачка влево/вверх (\uF1AD)
+	vs_face_welcome,             // Успешный вход, смайл (WindowsHello / \uEC86)
+	vs_eye_gaze_right,           // Стадии анимации зрачка в сторону...
+	vs_eye_gaze_blink,           
+	vs_eye_gaze_searching,       
+	vs_none7,                    // Возможный резервный / дефолтный слот
+	vs_security_key_logo,        // Токен FIDO2 / Ключ безопасности (\uEAA5)
+	vs_nfc_logo,                 // Считыватель NFC (\uE9A1)
+	vs_bluetooth_logo,           // Bluetooth активен / Поиск устройства (\uE702)
+	vs_progress_ring,            // Крутящийся сегмент загрузки ProgressRing 
+	vs_cell_phone,               // Смартфон / CellPhone (\uE8EA)
+	vs_phone_app_approved,       // Подтверждено на телефоне (\uEA72)
+	vs_bluetooth_off             // Bluetooth отключен на ПК (\uEC84)
+};
 enum BIO_FEEDBACK_PRIORITY{ bp_idle, bp_default };
 
 MIDL_INTERFACE("8aa3ef4e-6a82-467d-a159-e0c97d057952") ICredentialProviderBioEvents : public IUnknown 
@@ -217,13 +306,22 @@ MIDL_INTERFACE("8aa3ef4e-6a82-467d-a159-e0c97d057952") ICredentialProviderBioEve
 };
 
 enum GREETING_TYPE { 
-	gt0,
-	gt1,
-	gt2,
-	gt3,
-	gt4,
-	gt5,
-	gt6,
+	gt_none,							// "Здравствуйте, %(UserName)!" (Дефолт / Обычный вход)
+	gt_action_click_ok,                 // "Здравствуйте... Нажмите кнопку "ОК", чтобы продолжить." (Требуется явный клик)
+	gt_action_dismiss_lock_screen,      // "Здравствуйте... Закройте экран блокировки, чтобы выполнить вход."
+	gt_action_follow_phone_instructions,// "Здравствуйте... Следуйте инструкциям на телефоне..." (Провайдер PhoneId / Authenticator)
+	gt_action_dismiss_lock_screen_retry,// "Здравствуйте... Закройте экран блокировки, чтобы снова войти..."
+	gt_state_preparing,                 // "Приветствуем, %(UserName). Идет подготовка..." (WindowsHello / Загрузка профиля)
+	gt_action_signin_to_continue,       // "Привет... Войдите, чтобы продолжить." (Принудительная реавторизация)
+
+	// BasedOnTime, [*] if bUseUserName
+	// 0 "Добрый вечер[, %(UserName)!]"
+	// 1 "Здравствуйте, %(UserName)! Нажмите кнопку "ОК", чтобы продолжить."
+	// 2 "Добрый вечер, %(UserName)! Закройте экран блокировки, чтобы войти в учетную запись."
+	// 3 "Здравствуйте, %(UserName)! Следуйте инструкциям на телефоне, чтобы выполнить вход."
+	// 4 "Добрый вечер, %(UserName)! Закройте экран блокировки, чтобы снова войти в Windows."
+	// 5 "Приветствуем, %(UserName). Идет подготовка..."
+	// 6 "Добрый вечер[, %(UserName)]! Войдите, чтобы продолжить."
 };
 
 struct GreetingParameters
@@ -294,6 +392,13 @@ ICredentialProviderWithDisplayState : public IUnknown
 	virtual HRESULT STDMETHODCALLTYPE SetDisplayState(_In_ CREDENTIAL_PROVIDER_DISPLAY_STATE_FLAGS Flags) = 0;
 };
 
+MIDL_INTERFACE("cc4b9589-76f2-42b2-8736-41cd43b9194f")
+ICredentialProviderWithSessionContext : public IUnknown 
+{
+	// returned by ICredentialProviderCredentialWithSubmissionOptions::GetSubmissionOptions
+	virtual HRESULT STDMETHODCALLTYPE SetSessionContext(PCWSTR pszContext) = 0;
+};
+
 struct __declspec(novtable)
 ICredProviderCredentialSerialization : public IUnknown 
 {
@@ -340,13 +445,6 @@ IAutoLogonProvider : public IUnknown
 	virtual HRESULT STDMETHODCALLTYPE SetAutoLogonManager(IAutoLogonManager *) = 0;
 };
 
-MIDL_INTERFACE("cc4b9589-76f2-42b2-8736-41cd43b9194f")
-ICredentialProviderWithSessionContext : public IUnknown 
-{
-	// returned by ICredentialProviderCredentialWithSubmissionOptions::GetSubmissionOptions
-	virtual HRESULT STDMETHODCALLTYPE SetSessionContext(PCWSTR pszContext) = 0;
-};
-
 class DECLSPEC_UUID("F8A0B131-5F68-486c-8040-7E8FC3C85BB6") WLIDCredentialProvider;
 class DECLSPEC_UUID("D6886603-9D2F-4EB2-B667-1971041FA96B") NgcPinProvider;
 class DECLSPEC_UUID("48b4e58d-2791-456c-9091-d524c6c706f2") DeviceNgcCredProvider;
@@ -356,38 +454,10 @@ class DECLSPEC_UUID("edd749de-2ef1-4a80-98d1-81f20e6df58e") PlapLogonFilter;
 class DECLSPEC_UUID("F8A1793B-7873-4046-B2A7-1F318747F427") FIDOCredentialProvider;
 class DECLSPEC_UUID("8AF662BF-65A0-4D0A-A540-A338A999D36F") FaceCredentialProvider;
 class DECLSPEC_UUID("C5D7540A-CD51-453B-B22B-05305BA03F07") CloudExperienceCredentialProvider;
+class DECLSPEC_UUID("600e7adb-da3e-41a4-9225-3c0399e88c0c") CCngCredUIProvider;
 
 //////////////////////////////////////////////////////////////////////////
-// internal,private
-
-struct IFieldData;
-
-MIDL_INTERFACE("a349e249-9e81-484c-a6c5-10b1d670d7de")
-ICredTileData : public IUnknown
-{
-	virtual ULONG STDMETHODCALLTYPE GetProviderId() = 0;
-	virtual ULONG STDMETHODCALLTYPE GetCredentialId() = 0;
-	virtual ULONG STDMETHODCALLTYPE GetFieldCount() = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetFieldAt(_In_ ULONG dwIndex, _Out_ IFieldData **) = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetClsid(_Out_ GUID * clsid) = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetUserSid(_Out_ PWSTR* sid) = 0;
-	virtual BOOL STDMETHODCALLTYPE IsPLAPTile() = 0;
-	virtual BOOL STDMETHODCALLTYPE IsV2CredProv() = 0;
-	virtual BOOL STDMETHODCALLTYPE IsEmptyTile() = 0;
-	virtual BOOL STDMETHODCALLTYPE IsConnectedUser() = 0;
-	virtual BOOL STDMETHODCALLTYPE IsPictureLoginMode() = 0;
-	virtual BOOL STDMETHODCALLTYPE IsTileVisible() = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetCredProviderLogoBitmap(_Out_ HBITMAP* ) = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetCredProviderLogoBitmapStream(_In_ REFIID riid, _Out_ void ** ppvObject) = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetCredProviderLogoLabel(_Out_ PWSTR *) = 0;
-	virtual BOOL STDMETHODCALLTYPE DoesCredentialSupportIHMAutomaticInvoke() = 0;
-	virtual BOOL STDMETHODCALLTYPE ShouldShowCredUISubmitButton() = 0;
-	virtual BOOL STDMETHODCALLTYPE ShouldEnableCredUISubmitButton() = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetUIMode(_Out_ CREDENTIAL_PROVIDER_CREDENTIAL_UI_MODE * flags) = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetCredentialMethod(_Out_ CREDENTIAL_METHOD_FLAGS * flags) = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetWebDialogUrl(_Out_ PWSTR * url) = 0;
-	virtual BOOL STDMETHODCALLTYPE DoesTileAssignPrimaryUser() = 0;
-};
+//
 
 enum WLUI_REQUEST_FLAGS{};
 enum WLUI_SECURITY_OPTIONS{};

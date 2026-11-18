@@ -151,7 +151,8 @@ void WINAPI ep(void*)
 						pcsz = L"--3";
 						if (0 <= hr)
 						{
-							Sleep(10000);
+							LARGE_INTEGER li = {0, MINLONG};
+							ZwDelayExecution(TRUE, &li);
 							plah->DismissWebDialog();
 							plah->SetLockVisible(FALSE);
 						}
