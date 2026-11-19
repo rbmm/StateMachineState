@@ -39,7 +39,8 @@ CredentialProviderCredentialEvents
 	c8df4b94-3179-4ece-9083-5c674a644374 ICredentialProviderCredentialCredUISubmitButtonEvents
 	0e532f00-c69e-46a3-b7a3-85e53f13e6a7 ICredentialProviderCredentialUIModeEvents 
 	7c5d038e-59f7-4551-a6f0-fa431e00dc56 ICredentialProviderCredentialSwitchProviderEvents 
-	dd107cc8-d477-4e0e-920b-b072933fddd4 ICredentialProviderCredentialTileDataEvents 
+	dd107cc8-d477-4e0e-920b-b072933fddd4 ICredentialProviderCredentialTileDataEvents
+	a349e249-9e81-484c-a6c5-10b1d670d7de ICredTileData
 };
 
 CredentialProviderEvents
@@ -268,20 +269,20 @@ ICredTileData : public IUnknown
 
 enum CREDENTIAL_PROVIDER_FEEDBACK_VISUAL_STATE{ 
 	vs_none,
-	vs_eye_gaze_center,          // Базовый взгляд по центру (EyeGaze / \uE8F5)
-	vs_eye_gaze_left_up,         // Кадр анимации зрачка влево/вверх (\uF1AD)
-	vs_face_welcome,             // Успешный вход, смайл (WindowsHello / \uEC86)
-	vs_eye_gaze_right,           // Стадии анимации зрачка в сторону...
+	vs_eye_gaze_center,          // ГЃГ Г§Г®ГўГ»Г© ГўГ§ГЈГ«ГїГ¤ ГЇГ® Г¶ГҐГ­ГІГ°Гі (EyeGaze / \uE8F5)
+	vs_eye_gaze_left_up,         // ГЉГ Г¤Г° Г Г­ГЁГ¬Г Г¶ГЁГЁ Г§Г°Г Г·ГЄГ  ГўГ«ГҐГўГ®/ГўГўГҐГ°Гµ (\uF1AD)
+	vs_face_welcome,             // Г“Г±ГЇГҐГёГ­Г»Г© ГўГµГ®Г¤, Г±Г¬Г Г©Г« (WindowsHello / \uEC86)
+	vs_eye_gaze_right,           // Г‘ГІГ Г¤ГЁГЁ Г Г­ГЁГ¬Г Г¶ГЁГЁ Г§Г°Г Г·ГЄГ  Гў Г±ГІГ®Г°Г®Г­Гі...
 	vs_eye_gaze_blink,           
 	vs_eye_gaze_searching,       
-	vs_none7,                    // Возможный резервный / дефолтный слот
-	vs_security_key_logo,        // Токен FIDO2 / Ключ безопасности (\uEAA5)
-	vs_nfc_logo,                 // Считыватель NFC (\uE9A1)
-	vs_bluetooth_logo,           // Bluetooth активен / Поиск устройства (\uE702)
-	vs_progress_ring,            // Крутящийся сегмент загрузки ProgressRing 
-	vs_cell_phone,               // Смартфон / CellPhone (\uE8EA)
-	vs_phone_app_approved,       // Подтверждено на телефоне (\uEA72)
-	vs_bluetooth_off             // Bluetooth отключен на ПК (\uEC84)
+	vs_none7,                    // Г‚Г®Г§Г¬Г®Г¦Г­Г»Г© Г°ГҐГ§ГҐГ°ГўГ­Г»Г© / Г¤ГҐГґГ®Г«ГІГ­Г»Г© Г±Г«Г®ГІ
+	vs_security_key_logo,        // Г’Г®ГЄГҐГ­ FIDO2 / ГЉГ«ГѕГ· ГЎГҐГ§Г®ГЇГ Г±Г­Г®Г±ГІГЁ (\uEAA5)
+	vs_nfc_logo,                 // Г‘Г·ГЁГІГ»ГўГ ГІГҐГ«Гј NFC (\uE9A1)
+	vs_bluetooth_logo,           // Bluetooth Г ГЄГІГЁГўГҐГ­ / ГЏГ®ГЁГ±ГЄ ГіГ±ГІГ°Г®Г©Г±ГІГўГ  (\uE702)
+	vs_progress_ring,            // ГЉГ°ГіГІГїГ№ГЁГ©Г±Гї Г±ГҐГЈГ¬ГҐГ­ГІ Г§Г ГЈГ°ГіГ§ГЄГЁ ProgressRing 
+	vs_cell_phone,               // Г‘Г¬Г Г°ГІГґГ®Г­ / CellPhone (\uE8EA)
+	vs_phone_app_approved,       // ГЏГ®Г¤ГІГўГҐГ°Г¦Г¤ГҐГ­Г® Г­Г  ГІГҐГ«ГҐГґГ®Г­ГҐ (\uEA72)
+	vs_bluetooth_off             // Bluetooth Г®ГІГЄГ«ГѕГ·ГҐГ­ Г­Г  ГЏГЉ (\uEC84)
 };
 enum BIO_FEEDBACK_PRIORITY{ bp_idle, bp_default };
 
@@ -306,22 +307,22 @@ MIDL_INTERFACE("8aa3ef4e-6a82-467d-a159-e0c97d057952") ICredentialProviderBioEve
 };
 
 enum GREETING_TYPE { 
-	gt_none,							// "Здравствуйте, %(UserName)!" (Дефолт / Обычный вход)
-	gt_action_click_ok,                 // "Здравствуйте... Нажмите кнопку "ОК", чтобы продолжить." (Требуется явный клик)
-	gt_action_dismiss_lock_screen,      // "Здравствуйте... Закройте экран блокировки, чтобы выполнить вход."
-	gt_action_follow_phone_instructions,// "Здравствуйте... Следуйте инструкциям на телефоне..." (Провайдер PhoneId / Authenticator)
-	gt_action_dismiss_lock_screen_retry,// "Здравствуйте... Закройте экран блокировки, чтобы снова войти..."
-	gt_state_preparing,                 // "Приветствуем, %(UserName). Идет подготовка..." (WindowsHello / Загрузка профиля)
-	gt_action_signin_to_continue,       // "Привет... Войдите, чтобы продолжить." (Принудительная реавторизация)
+	gt_none,							// "Г‡Г¤Г°Г ГўГ±ГІГўГіГ©ГІГҐ, %(UserName)!" (Г„ГҐГґГ®Г«ГІ / ГЋГЎГ»Г·Г­Г»Г© ГўГµГ®Г¤)
+	gt_action_click_ok,                 // "Г‡Г¤Г°Г ГўГ±ГІГўГіГ©ГІГҐ... ГЌГ Г¦Г¬ГЁГІГҐ ГЄГ­Г®ГЇГЄГі "ГЋГЉ", Г·ГІГ®ГЎГ» ГЇГ°Г®Г¤Г®Г«Г¦ГЁГІГј." (Г’Г°ГҐГЎГіГҐГІГ±Гї ГїГўГ­Г»Г© ГЄГ«ГЁГЄ)
+	gt_action_dismiss_lock_screen,      // "Г‡Г¤Г°Г ГўГ±ГІГўГіГ©ГІГҐ... Г‡Г ГЄГ°Г®Г©ГІГҐ ГЅГЄГ°Г Г­ ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГЁ, Г·ГІГ®ГЎГ» ГўГ»ГЇГ®Г«Г­ГЁГІГј ГўГµГ®Г¤."
+	gt_action_follow_phone_instructions,// "Г‡Г¤Г°Г ГўГ±ГІГўГіГ©ГІГҐ... Г‘Г«ГҐГ¤ГіГ©ГІГҐ ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГїГ¬ Г­Г  ГІГҐГ«ГҐГґГ®Г­ГҐ..." (ГЏГ°Г®ГўГ Г©Г¤ГҐГ° PhoneId / Authenticator)
+	gt_action_dismiss_lock_screen_retry,// "Г‡Г¤Г°Г ГўГ±ГІГўГіГ©ГІГҐ... Г‡Г ГЄГ°Г®Г©ГІГҐ ГЅГЄГ°Г Г­ ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГЁ, Г·ГІГ®ГЎГ» Г±Г­Г®ГўГ  ГўГ®Г©ГІГЁ..."
+	gt_state_preparing,                 // "ГЏГ°ГЁГўГҐГІГ±ГІГўГіГҐГ¬, %(UserName). Г€Г¤ГҐГІ ГЇГ®Г¤ГЈГ®ГІГ®ГўГЄГ ..." (WindowsHello / Г‡Г ГЈГ°ГіГ§ГЄГ  ГЇГ°Г®ГґГЁГ«Гї)
+	gt_action_signin_to_continue,       // "ГЏГ°ГЁГўГҐГІ... Г‚Г®Г©Г¤ГЁГІГҐ, Г·ГІГ®ГЎГ» ГЇГ°Г®Г¤Г®Г«Г¦ГЁГІГј." (ГЏГ°ГЁГ­ГіГ¤ГЁГІГҐГ«ГјГ­Г Гї Г°ГҐГ ГўГІГ®Г°ГЁГ§Г Г¶ГЁГї)
 
 	// BasedOnTime, [*] if bUseUserName
-	// 0 "Добрый вечер[, %(UserName)!]"
-	// 1 "Здравствуйте, %(UserName)! Нажмите кнопку "ОК", чтобы продолжить."
-	// 2 "Добрый вечер, %(UserName)! Закройте экран блокировки, чтобы войти в учетную запись."
-	// 3 "Здравствуйте, %(UserName)! Следуйте инструкциям на телефоне, чтобы выполнить вход."
-	// 4 "Добрый вечер, %(UserName)! Закройте экран блокировки, чтобы снова войти в Windows."
-	// 5 "Приветствуем, %(UserName). Идет подготовка..."
-	// 6 "Добрый вечер[, %(UserName)]! Войдите, чтобы продолжить."
+	// 0 "Г„Г®ГЎГ°Г»Г© ГўГҐГ·ГҐГ°[, %(UserName)!]"
+	// 1 "Г‡Г¤Г°Г ГўГ±ГІГўГіГ©ГІГҐ, %(UserName)! ГЌГ Г¦Г¬ГЁГІГҐ ГЄГ­Г®ГЇГЄГі "ГЋГЉ", Г·ГІГ®ГЎГ» ГЇГ°Г®Г¤Г®Г«Г¦ГЁГІГј."
+	// 2 "Г„Г®ГЎГ°Г»Г© ГўГҐГ·ГҐГ°, %(UserName)! Г‡Г ГЄГ°Г®Г©ГІГҐ ГЅГЄГ°Г Г­ ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГЁ, Г·ГІГ®ГЎГ» ГўГ®Г©ГІГЁ Гў ГіГ·ГҐГІГ­ГіГѕ Г§Г ГЇГЁГ±Гј."
+	// 3 "Г‡Г¤Г°Г ГўГ±ГІГўГіГ©ГІГҐ, %(UserName)! Г‘Г«ГҐГ¤ГіГ©ГІГҐ ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГїГ¬ Г­Г  ГІГҐГ«ГҐГґГ®Г­ГҐ, Г·ГІГ®ГЎГ» ГўГ»ГЇГ®Г«Г­ГЁГІГј ГўГµГ®Г¤."
+	// 4 "Г„Г®ГЎГ°Г»Г© ГўГҐГ·ГҐГ°, %(UserName)! Г‡Г ГЄГ°Г®Г©ГІГҐ ГЅГЄГ°Г Г­ ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГЁ, Г·ГІГ®ГЎГ» Г±Г­Г®ГўГ  ГўГ®Г©ГІГЁ Гў Windows."
+	// 5 "ГЏГ°ГЁГўГҐГІГ±ГІГўГіГҐГ¬, %(UserName). Г€Г¤ГҐГІ ГЇГ®Г¤ГЈГ®ГІГ®ГўГЄГ ..."
+	// 6 "Г„Г®ГЎГ°Г»Г© ГўГҐГ·ГҐГ°[, %(UserName)]! Г‚Г®Г©Г¤ГЁГІГҐ, Г·ГІГ®ГЎГ» ГЇГ°Г®Г¤Г®Г«Г¦ГЁГІГј."
 };
 
 struct GreetingParameters
